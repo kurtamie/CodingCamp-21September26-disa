@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengelola Anggaran Pengeluaran</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app-container">
+
+    <!-- Header -->
+    <header>
+      <h1>Pengelola Anggaran</h1>
+      <button id="theme-toggle" type="button" aria-label="Toggle mode gelap/terang">
+        🌙 Ganti Tema
+      </button>
+    </header>
+
+    <main>
+
+      <!-- Input Form Card -->
+      <section class="card" id="input-form-card">
+        <h2>Tambah Transaksi</h2>
+        <form id="transaction-form" novalidate>
+          <div class="form-group">
+            <label for="tx-name">Nama Transaksi</label>
+            <input
+              type="text"
+              id="tx-name"
+              name="name"
+              placeholder="cth: Makan siang, Ongkos..."
+              autocomplete="off"
+            />
+            <span class="field-error" id="error-name" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="tx-amount">Jumlah (Rp)</label>
+            <input
+              type="number"
+              id="tx-amount"
+              name="amount"
+              placeholder="0"
+              min="1"
+              step="1"
+            />
+            <span class="field-error" id="error-amount" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="tx-category">Kategori</label>
+            <select id="tx-category" name="category">
+              <option value="">-- Pilih kategori --</option>
+              <option value="Makanan">Makanan</option>
+              <option value="Transportasi">Transportasi</option>
+              <option value="Hiburan">Hiburan</option>
+            </select>
+            <span class="field-error" id="error-category" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn-primary">Tambah Transaksi</button>
+        </form>
+      </section>
+
+      <!-- Spending Limit Card -->
+      <section class="card" id="spending-limit-card">
+        <h2>Batas Pengeluaran</h2>
+        <div class="form-group">
+          <label for="spending-limit">Atur batas anggaran Anda (Rp)</label>
+          <input
+            type="number"
+            id="spending-limit"
+            name="spending-limit"
+            placeholder="cth: 500000"
+            min="1"
+            step="1"
+          />
+          <span class="field-error" id="error-limit" aria-live="polite"></span>
+        </div>
+        <button type="button" id="set-limit-btn" class="btn-primary">Atur Batas</button>
+      </section>
+
+      <!-- Total Balance Card -->
+      <section class="card" id="balance-card">
+        <h2>Total Pengeluaran</h2>
+        <p id="total-balance" class="balance-amount">Rp 0</p>
+
+        <!-- Budget Alert Banner -->
+        <div id="budget-alert" class="alert-banner" role="alert" aria-live="assertive" hidden>
+          ⚠️ Anda telah melampaui batas pengeluaran!
+        </div>
+      </section>
+
+      <!-- Pie Chart Card -->
+      <section class="card" id="chart-card">
+        <h2>Pengeluaran per Kategori</h2>
+        <canvas id="pie-chart" aria-label="Diagram lingkaran pengeluaran per kategori" role="img"></canvas>
+        <div id="chart-placeholder" class="placeholder-message">
+          Belum ada transaksi. Tambahkan untuk melihat grafik pengeluaran Anda.
+        </div>
+      </section>
+
+      <!-- Sort Controls + Transaction List Card -->
+      <section class="card" id="transaction-list-card">
+        <h2>Daftar Transaksi</h2>
+
+        <!-- Sort Controls -->
+        <div id="sort-controls" role="group" aria-label="Urutkan transaksi">
+          <span>Urutkan:</span>
+          <button type="button" class="btn-sort" data-sort="amount">Jumlah</button>
+          <button type="button" class="btn-sort" data-sort="category">Kategori</button>
+        </div>
+
+        <!-- Transaction List -->
+        <ul id="transaction-list" aria-label="Daftar transaksi">
+          <!-- Transactions rendered here by UIModule -->
+        </ul>
+
+        <p id="empty-state" class="empty-state-message" aria-live="polite">
+          Belum ada transaksi. Mulai dengan menambahkan di atas!
+        </p>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 Pengelola Anggaran Pengeluaran</p>
+    </footer>
+
+  </div><!-- /#app-container -->
+
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- App script -->
+  <script src="js/script.js" defer></script>
+</body>
+</html>
